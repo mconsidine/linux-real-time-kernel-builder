@@ -17,7 +17,7 @@ on:
         required: false
         type: string
       rt_patch:
-        description: 'RT patch in a form of <5.15.76-rt53>'
+        description: 'RT patch in a form of <6.17.0-rc4-rt3>'
         default: ''
         required: false
         type: string
