@@ -12,7 +12,7 @@ on:
   workflow_call:
     inputs:
       uname_r:
-        description: 'raspi release in a form of <5.15.0-1023-raspi>'
+        description: 'raspi release in a form of <6.17.0-0929-raspi>'
         default: ''
         required: false
         type: string
@@ -28,7 +28,7 @@ on:
         type: string
       ubuntu_version:
         description: 'Ubuntu version'
-        default: 'jammy'
+        default: 'noble'
         required: false
         type: string
       lttng_version:
@@ -88,7 +88,7 @@ jobs:
             RT_PATCH=${{ inputs.rt_patch }}
             LTTNG_VERSION=${{ inputs.lttng_version }}
           push: false
-          tags: rtwg-image:22.04
+          tags: rtwg-image:24.04
 
       - name: Build kernel
         uses: addnab/docker-run-action@v3
