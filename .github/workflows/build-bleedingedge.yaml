@@ -14,9 +14,9 @@ on:
         required: false
         type: string
       uname_r:
-        description: 'raspi release in the form of <6.17.0-0929-raspi>'
+        description: 'raspi release in the form of <6.17.0-1003-raspi>'
         required: true
-        default: '6.17.0-0925-raspi'
+        default: '6.17.0-1003-raspi'
         type: string
       lttng_version:
         description: 'LTTNG version 2.13'
