@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
     inputs:
       kernel_version:
-        description: 'Raspi kernel version, 6.17'
-        default: '6.17'
+        description: 'Raspi kernel version, 6.17.0'
+        default: '6.17.0'
         required: false
         type: string
       ubuntu_version:
