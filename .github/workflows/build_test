@@ -1,0 +1,33 @@
+name: 'Build test'
+
+on:
+  workflow_dispatch:
+    inputs:
+      kernel_version:
+        description: 'Raspi kernel version, 6.17.0'
+        default: '6.14.0'
+        required: false
+        type: string
+      ubuntu_version:
+        description: 'Ubuntu version, noble'
+        default: 'noble'
+        required: false
+        type: string
+      uname_r:
+        description: 'raspi release in the form of <6.17.0-1003-raspi>'
+        required: true
+        default: '6.14.0-1003-raspi'
+        type: string
+      lttng_version:
+        description: 'LTTNG version 2.13'
+        default: '2.13'
+        required: false
+        type: string
+jobs:
+  call-rpi4-kernel-build:
+    uses: ./.github/workflows/rpi4-kernel-build.yml
+    with:
+      uname_r: ${{ github.event.inputs.uname_r }}
+      kernel_version: ${{ github.event.inputs.kernel_version }}
+      ubuntu_version: ${{ github.event.inputs.ubuntu_version }}
+      lttng_version: ${{ github.event.inputs.lttng_version }}
