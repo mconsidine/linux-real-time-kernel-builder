@@ -8,12 +8,17 @@ on:
         default: '6.14.0'
         required: false
         type: string
+      rt_patch: #https://cdn.kernel.org/pub/linux/kernel/projects/rt/6.14/
+        description: 'RT patch in a form of <6.17.0-rc4-rt3>'
+        default: '6.14-rt3'
+        required: false
+        type: string        
       ubuntu_version:
         description: 'Ubuntu version, noble'
         default: 'noble'
         required: false
         type: string
-      uname_r:
+      uname_r: #https://ports.ubuntu.com/pool/main/l/linux-raspi/
         description: 'raspi release in the form of <6.17.0-1003-raspi>'
         required: true
         default: '6.14.0-1003-raspi'
