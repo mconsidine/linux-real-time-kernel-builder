@@ -1,0 +1,106 @@
+# This is a callable workflow for the Raspberry Pi RT kernel build. It is based on the Dockerfile located in the repo
+# Workflow can be started from another workflow
+# The build takes 2 hours and artifacts are available under workflow artifacts
+#  - kernel .deb packages
+# TODO:
+#  - create a Docker image and push it to the packages
+
+name: 'RPI4 RT Kernel build'
+
+# Controls when the workflow will run
+on:
+  workflow_call:
+    inputs:
+      uname_r:
+        description: 'raspi release in a form of <6.17.0-0929-raspi>'
+        default: ''
+        required: false
+        type: string
+      rt_patch:
+        description: 'RT patch in a form of <6.17.0-rc4-rt3>'
+        default: ''
+        required: false
+        type: string
+      kernel_version:
+        description: 'Raspi kernel version'
+        default: '6.17.0'
+        required: false
+        type: string
+      ubuntu_version:
+        description: 'Ubuntu version'
+        default: 'noble'
+        required: false
+        type: string
+      lttng_version:
+        description: 'LTTNG version'
+        default: '2.13'
+        required: false
+        type: string
+env:
+  ARCH: arm64
+  triple: aarch64-linux-gnu
+  KERNEL_DIR: linux-raspi
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # Use Ubuntu 24.04 runner
+    runs-on: ubuntu-24.04
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Free Disk Space
+        uses: jlumbroso/free-disk-space@main
+        with:
+          # this might remove tools that are actually needed,
+          # if set to "true" but frees about 6 GB
+          tool-cache: true
+
+          # all of these default to true, but feel free to set to
+          # "false" if necessary for your workflow
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: false
+          swap-storage: true
+
+      - name: Print input params
+        run: |
+          echo UBUNTU_VERSION=${{ inputs.ubuntu_version }}
+          echo KERNEL_VERSION=${{ inputs.kernel_version }}
+          echo UNAME_R=${{ inputs.uname_r }}
+          echo RT_PATCH=${{ inputs.rt_patch }}
+          echo LTTNG_VERSION=${{ inputs.lttng_version }}
+
+      - name: Build rtwg-image docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          build-args: |
+            UBUNTU_VERSION=${{ inputs.ubuntu_version }}
+            KERNEL_VERSION=${{ inputs.kernel_version }}
+            UNAME_R=${{ inputs.uname_r }}
+            RT_PATCH=${{ inputs.rt_patch }}
+            LTTNG_VERSION=${{ inputs.lttng_version }}
+          push: false
+          tags: rtwg-image:24.04
+
+      - name: Build kernel
+        uses: addnab/docker-run-action@v3
+        with:
+          image: rtwg-image:24.04
+          options: -v ${{ github.workspace }}:/work
+          run:  |
+            cd /linux_build/linux-raspi
+            make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- LOCALVERSION=-raspi -j `nproc` bindeb-pkg
+            sudo cp ../*.deb /work
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: 'RPI4 RT Kernel deb packages'
+          path: ${{ github.workspace }}/*.deb
