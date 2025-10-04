@@ -31,11 +31,11 @@ on:
         default: 'noble'
         required: false
         type: string
-      lttng_version:
-        description: 'LTTNG version'
-        default: '2.13'
-        required: false
-        type: string
+#      lttng_version:
+#        description: 'LTTNG version'
+#        default: '2.13'
+#        required: false
+#        type: string
 env:
   ARCH: arm64
   triple: aarch64-linux-gnu
@@ -75,7 +75,7 @@ jobs:
           echo KERNEL_VERSION=${{ inputs.kernel_version }}
           echo UNAME_R=${{ inputs.uname_r }}
           echo RT_PATCH=${{ inputs.rt_patch }}
-          echo LTTNG_VERSION=${{ inputs.lttng_version }}
+#          echo LTTNG_VERSION=${{ inputs.lttng_version }}
 
       - name: Build rtwg-image docker image
         uses: docker/build-push-action@v3
@@ -86,7 +86,7 @@ jobs:
             KERNEL_VERSION=${{ inputs.kernel_version }}
             UNAME_R=${{ inputs.uname_r }}
             RT_PATCH=${{ inputs.rt_patch }}
-            LTTNG_VERSION=${{ inputs.lttng_version }}
+#            LTTNG_VERSION=${{ inputs.lttng_version }}
           push: false
           tags: rtwg-image:24.04
 
