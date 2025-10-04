@@ -18,16 +18,16 @@ on:
         required: true
         default: '6.8.0-1005-raspi'
         type: string
-      lttng_version:
-        description: 'LTTNG version 2.13'
-        default: '2.13'
-        required: false
-        type: string
+#      lttng_version:
+#        description: 'LTTNG version 2.13'
+#        default: '2.13'
+#        required: false
+#        type: string
 jobs:
   call-rpi4-kernel-build:
-    uses: ./.github/workflows/rpi4-kernel-build.yml
+    uses: ./.github/workflows/rpi4-kernel-build_nolttng.yml
     with:
       uname_r: ${{ github.event.inputs.uname_r }}
       kernel_version: ${{ github.event.inputs.kernel_version }}
       ubuntu_version: ${{ github.event.inputs.ubuntu_version }}
-      lttng_version: ${{ github.event.inputs.lttng_version }}
+#      lttng_version: ${{ github.event.inputs.lttng_version }}
