@@ -142,7 +142,8 @@ RUN cd /linux_build/${KERNEL_DIR} \
 
 # download and unzip RT patch
 RUN cd /linux_build \
-    && wget http://cdn.kernel.org/pub/linux/kernel/projects/rt/`echo ${KERNEL_VERSION} | cut -d '.' -f 1-2`/older/patch-`cat /home/user/rt_patch`.patch.gz \
+    #patch-
+    && wget http://cdn.kernel.org/pub/linux/kernel/projects/rt/`echo ${KERNEL_VERSION} | cut -d '.' -f 1-2`/older/`cat /home/user/rt_patch`.patch.gz \
     && gunzip patch-`cat /home/user/rt_patch`.patch.gz
 
 # download lttng source for use later
