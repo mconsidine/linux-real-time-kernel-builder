@@ -30,7 +30,7 @@ on:
 #        type: string
 jobs:
   call-rpi4-kernel-build:
-    uses: ./.github/workflows/rpi4-kernel-build.yml
+    uses: ./.github/workflows/rpi4-kernel-build_nolttng.yml
     with:
       uname_r: ${{ github.event.inputs.uname_r }}
       kernel_version: ${{ github.event.inputs.kernel_version }}
