@@ -21,7 +21,7 @@ on:
       uname_r: #https://ports.ubuntu.com/pool/main/l/linux-raspi/
         description: 'raspi release in the form of <6.17.0-1003-raspi>'
         required: true
-        default: '6.14.0-1003-raspi'
+        default: '6.14.0-1005-raspi'
         type: string
       lttng_version:
         description: 'LTTNG version 2.13'
