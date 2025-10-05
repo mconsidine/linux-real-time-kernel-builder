@@ -12,7 +12,7 @@ fi
 # Retrieve a list of ```patch.gz``` patches, and sort them
 # assumed patched are in form of patch-5.4.177-rt69.patch.gz
 patch_list=`curl -s https://cdn.kernel.org/pub/linux/kernel/projects/rt/$major_minor/older/ | grep patch.gz | cut -d '"' -f 2 | sort -V`
-echo "$patch_list"
+#echo "$patch_list"
 # go through the list and take the nearest patch to the provided SUBLEVEL number which is equal or greater
 sl=$sublevel
 for patch_item in $patch_list
@@ -22,7 +22,7 @@ do
                break
        fi
 done
-echo "$patch_list"
+#echo "$patch_list"
 
 # check whether there are several RT patches exist with the same SUBLEVEL number, and take the latest
 echo "$patch_list" | tr ' ' '\n' | grep patch-$major_minor.$sl | tail -n 1 | cut -d '-' -f 2-3 | cut -d '.' -f 1-3
