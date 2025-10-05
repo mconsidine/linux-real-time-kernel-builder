@@ -35,4 +35,5 @@ jobs:
       uname_r: ${{ github.event.inputs.uname_r }}
       kernel_version: ${{ github.event.inputs.kernel_version }}
       ubuntu_version: ${{ github.event.inputs.ubuntu_version }}
+      rt_patch: ${{ github.event.inputs.rt_patch }}
 #      lttng_version: ${{ github.event.inputs.lttng_version }}
