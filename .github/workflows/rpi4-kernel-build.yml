@@ -31,6 +31,11 @@ on:
         default: 'noble'
         required: false
         type: string
+      ubuntu_number:
+        description: 'Ubuntu number eg 24.04'
+        default: '24.04'
+        required: false
+        type: string
       lttng_version:
         description: 'LTTNG version'
         default: '2.13'
@@ -46,7 +51,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # Use Ubuntu 24.04 runner
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-${{ inputs.ubuntu_number }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -72,6 +77,7 @@ jobs:
       - name: Print input params
         run: |
           echo UBUNTU_VERSION=${{ inputs.ubuntu_version }}
+          echo UBUNTU_NUMBER=${{ inputs.ubuntu_number }}
           echo KERNEL_VERSION=${{ inputs.kernel_version }}
           echo UNAME_R=${{ inputs.uname_r }}
           echo RT_PATCH=${{ inputs.rt_patch }}
@@ -83,17 +89,18 @@ jobs:
           context: .
           build-args: |
             UBUNTU_VERSION=${{ inputs.ubuntu_version }}
+            UBUNTU_NUMBER=${{ inputs.ubuntu_number }}            
             KERNEL_VERSION=${{ inputs.kernel_version }}
             UNAME_R=${{ inputs.uname_r }}
             RT_PATCH=${{ inputs.rt_patch }}
             LTTNG_VERSION=${{ inputs.lttng_version }}
           push: false
-          tags: rtwg-image:24.04
+          tags: rtwg-image:${{ inputs.ubuntu_number }}
 
       - name: Build kernel
         uses: addnab/docker-run-action@v3
         with:
-          image: rtwg-image:24.04
+          image: rtwg-image:${{ inputs.ubuntu_number }}
           options: -v ${{ github.workspace }}:/work
           run:  |
             cd /linux_build/linux-raspi
