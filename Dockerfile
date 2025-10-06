@@ -36,7 +36,7 @@
 # copy deb packages to the host, or directly to the Raspberry Pi target
 # $ scp ../*.deb <user>@172.17.0.1:/home/<user>/.
 
-FROM ubuntu:noble
+FROM ubuntu:UBUNTU_VERSION #noble
 
 USER root
 ARG DEBIAN_FRONTEND=noninteractive
@@ -51,9 +51,9 @@ ARG ARCH=arm64
 ARG UNAME_R
 ARG RT_PATCH
 ARG triple=aarch64-linux-gnu
-ARG KERNEL_VERSION=6.8.0
-ARG UBUNTU_VERSION=noble
-ARG LTTNG_VERSION=2.13
+ARG KERNEL_VERSION #=6.8.0
+ARG UBUNTU_VERSION #=noble
+ARG LTTNG_VERSION #=2.13
 ARG KERNEL_DIR=linux-raspi
 
 # setup arch
