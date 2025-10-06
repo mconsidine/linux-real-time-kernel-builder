@@ -18,6 +18,11 @@ on:
         default: 'noble'
         required: false
         type: string
+      ubuntu_number:
+        description: 'Ubuntu number, eg 24.04'
+        default: '24.04'
+        required: false
+        type: string
       uname_r:
         description: 'raspi release in the form of <6.17.0-1003-raspi>'
         required: true
@@ -37,4 +42,4 @@ jobs:
       ubuntu_version: ${{ github.event.inputs.ubuntu_version }}
       lttng_version: ${{ github.event.inputs.lttng_version }}
       rt_patch: ${{ github.event.inputs.rt_patch }}
-      
+      ubuntu_number: ${{ github.event.inputs.ubuntu_number }}
