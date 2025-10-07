@@ -36,7 +36,7 @@
 # copy deb packages to the host, or directly to the Raspberry Pi target
 # $ scp ../*.deb <user>@172.17.0.1:/home/<user>/.
 
-FROM ubuntu:UBUNTU_VERSION #noble
+FROM ubuntu:noble
 
 USER root
 ARG DEBIAN_FRONTEND=noninteractive
