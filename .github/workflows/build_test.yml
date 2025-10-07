@@ -1,4 +1,4 @@
-name: 'Build test'
+8name: 'Build test'
 
 on:
   workflow_dispatch:
@@ -23,7 +23,7 @@ on:
         default: '24.04'
         required: false
         type: string
-      uname_r:
+      uname_r: #https://ports.ubuntu.com/pool/main/l/linux-raspi/
         description: 'raspi release in the form of <6.17.0-1003-raspi>'
         required: true
         default: '6.8.0-1005-raspi'
