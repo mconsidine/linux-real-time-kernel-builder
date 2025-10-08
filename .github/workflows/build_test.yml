@@ -1,4 +1,4 @@
-8name: 'Build test'
+name: 'Build test'
 
 on:
   workflow_dispatch:
@@ -9,8 +9,8 @@ on:
         required: false
         type: string
       rt_patch: #https://cdn.kernel.org/pub/linux/kernel/projects/rt/6.14/
-        description: 'RT patch in a form of <6.17.0-rc4-rt3>'
-        default: '6.8-rt3'
+        description: 'RT patch in a form of <6.8.2-rt11>'
+        default: '6.8.2-rt11'
         required: false
         type: string
       ubuntu_version:
